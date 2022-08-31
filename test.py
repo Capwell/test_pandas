@@ -1,3 +1,22 @@
+import pandas as pd
+import re
+from typing import Pattern, List, Dict
+
+
+def change_chars(text: str, pattern: Pattern) -> str:
+    """ Replace chars to asterics"""
+
+    text = re.sub(r"\s+", "", text)
+    
+    if matches := re.finditer(pattern, text):
+        for match in matches:
+            text = text.replace(
+                match.group(), (match.end() - match.start()) * "*"
+            )
+            
+    return text
+
+
 
 def handle_titles(title: str, names: Dict[int, str]) -> List[str]:
     """Determines data to be changed."""
@@ -44,3 +63,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
